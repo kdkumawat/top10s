@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Russo+One&family=Chakra+Petch:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Design Tokens ===== */
+:root {
+  /* Dark mode (default / primary) */
+  --color-bg: #0b0712;
+  --color-surface: #15101f;
+  --color-surface-elevated: #1e1730;
+  --color-border: #2d2342;
+  --color-border-strong: #4a3a6b;
+  --color-fg: #f5f0ff;
+  --color-fg-muted: #b8a8d9;
+  --color-fg-subtle: #7a6b9c;
+  --color-primary: #7c3aed;
+  --color-primary-hover: #8b5cf6;
+  --color-primary-fg: #ffffff;
+  --color-accent: #16a34a;
+  --color-accent-hover: #22c55e;
+  --color-accent-fg: #000000;
+  --color-gold: #f5c518;
+  --color-gold-fg: #0b0712;
+  --color-urgency: #f59e0b;
+  --color-danger: #dc2626;
+  --color-danger-fg: #ffffff;
+  --color-rank-1: #f5c518;
+  --color-rank-2: #d1d5db;
+  --color-rank-3: #b45309;
+  --color-frozen: #64748b;
+  --color-empty: #2d2342;
+
+  /* Typography */
+  --font-display: "Russo One", system-ui, sans-serif;
+  --font-body: "Chakra Petch", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Motion */
+  --dur-instant: 80ms;
+  --dur-quick: 150ms;
+  --dur-base: 220ms;
+  --dur-slow: 400ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0, 0.68, 0.15);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Light mode (opt-in via .light class) */
+.light {
+  --color-bg: #faf5ff;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #f3edff;
+  --color-border: #ddd6fe;
+  --color-border-strong: #c4b5fd;
+  --color-fg: #4c1d95;
+  --color-fg-muted: #6b46c1;
+  --color-fg-subtle: #7c6b9c;
+  --color-empty: #ede9fe;
+}
+
+/* ===== Base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+}
+
+/* Tabular numerals for data */
+.font-mono,
+[data-tabular] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Focus ring (never removed) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-primary-fg);
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  z-index: 1000;
+  padding: 12px 16px;
+  background: var(--color-primary);
+  color: var(--color-primary-fg);
+  font-weight: 600;
+  border-radius: var(--radius-md, 10px);
+  transition: top var(--dur-quick) var(--ease-out);
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 0%,
+    var(--color-surface-elevated) 50%,
+    var(--color-surface) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s linear infinite;
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Opacity transitions remain for state feedback */
+  [data-motion-essential] {
+    transition-duration: 80ms !important;
+  }
+}
