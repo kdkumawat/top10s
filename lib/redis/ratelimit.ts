@@ -21,9 +21,9 @@ function buildRealLimiter() {
   return async function limit(identifier: string) {
     if (!_realLimiter) {
       const { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = getUpstashEnv();
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      // eslint-disable-next-line
       const { Redis } = require("@upstash/redis") as typeof import("@upstash/redis");
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      // eslint-disable-next-line
       const { Ratelimit } = require("@upstash/ratelimit") as typeof import("@upstash/ratelimit");
       const redis = new Redis({
         url: UPSTASH_REDIS_REST_URL,

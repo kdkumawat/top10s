@@ -6,8 +6,11 @@ import * as schema from "./schema";
 
 /**
  * Single Drizzle client for the app runtime.
- * Uses Neon's HTTP driver — works on Vercel Edge, no TCP needed.
- * Works in dev (Neon free tier, pooled host) and prod (Neon prod branch) — same driver.
+ * Uses Neon's HTTP driver — works on Vercel serverless, no TCP needed.
+ * Works in dev (Neon free tier, pooled host) and prod (Neon prod branch).
+ *
+ * DATABASE_URL must be set at deploy time. The build-time env validation
+ * ensures misconfigured deploys fail at build, not silently in production.
  */
 const { DATABASE_URL } = getDbEnv();
 if (!DATABASE_URL) {

@@ -36,7 +36,7 @@ export function getRedis(): RedisLike {
   }
   const { UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN } = getUpstashEnv();
   // Upstash SDK is loaded dynamically so env validation can run first.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  // eslint-disable-next-line
   const mod = require("@upstash/redis") as typeof import("@upstash/redis");
   const real = new mod.Redis({
     url: UPSTASH_REDIS_REST_URL,

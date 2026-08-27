@@ -30,3 +30,6 @@ drizzle/
 
 # typescript
 *.tsbuildinfo
+
+.vercel
+

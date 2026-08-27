@@ -1,5 +1,7 @@
 import { ListingForm } from "@/components/listings/listing-form";
 
+export const dynamic = "force-dynamic";
+
 export default function NewListingPage() {
   return (
     <div className="mx-auto max-w-lg space-y-6">
