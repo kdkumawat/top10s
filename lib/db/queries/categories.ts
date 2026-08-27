@@ -20,7 +20,7 @@ export type CategoryWithCount = {
  * Categories with 0 listings are still returned.
  */
 export async function getAllCategoriesWithCounts(): Promise<CategoryWithCount[]> {
-  const rows = await db.execute<{
+  const result = await db.execute<{
     id: string;
     slug: string;
     name: string;
@@ -45,13 +45,22 @@ export async function getAllCategoriesWithCounts(): Promise<CategoryWithCount[]>
     GROUP BY c.id, c.slug, c.name
     ORDER BY count DESC, c.name ASC
   `);
-  // postgres-js execute() with generic types returns rows directly as the array.
-  return (rows as unknown as {
-    id: string;
-    slug: string;
-    name: string;
-    count: number;
-  }[]).map((r) => ({
+  // neon-http db.execute() returns { rows, fields }; postgres-js returns rows directly.
+  // Normalize: pull `.rows` if present, else use the value as-is.
+  const rows = Array.isArray(result)
+    ? (result as unknown as {
+        id: string;
+        slug: string;
+        name: string;
+        count: number;
+      }[])
+    : ((result as unknown as { rows: {
+        id: string;
+        slug: string;
+        name: string;
+        count: number;
+      }[] }).rows ?? []);
+  return rows.map((r) => ({
     id: r.id,
     slug: r.slug,
     name: r.name,
